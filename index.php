@@ -1,7 +1,7 @@
-<?php 
+<?php
 	include 'commands.php';
 	include 'header.php';
-		
+
 	//running Session
 	session_start();
 
@@ -10,13 +10,13 @@
 	// echo $COMMUNITY;
 
 	// //+++++++++++++++++++++++++++++=
-	// // setting Configuration 
+	// // setting Configuration
 	// setIP("192.168.1.200");
 	// setCommunity("cisco");
 	// //+++++++++++++++++++++++++++++=
 
 	// cisco CLI Command
-?>	
+?>
 	<h1>Cisco CLI Command</h1>
 
 	<h3>Show Commands </h3> <!-- head title -->
@@ -29,15 +29,23 @@
 	<form method="GET" action="handler.php">
 		<tr>
 			<td>
-				<?php 
+				<?php
 				//get router name
 				$Routername = getRouterName();
 				echo $Routername."# Show ip interface brief";
 				?>
 			</td>
 			<td>
-				<input type="submit" name="shIpInterBr" value="Run" class="btn btn-success">
+				<input type="submit" name="shIpInterBrRun" value="Run" class="btn btn-success">
+				<input type="submit" name="shIpInterBrHide" value="Hide" class="btn btn-success">
 			</td>
 		</tr>
 	</form>
 	</table>
+	<table class="table table-hover">
+	<?php
+		if (isset($_SESSION['showOutput']) && !is_null($_SESSION['showOutput'])) {
+				echo $_SESSION['showOutput'];
+		}
+	 ?>
+	 </table>
