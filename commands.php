@@ -1,5 +1,15 @@
 <?php
 	include 'functions.php';
+/**
+ *
+ */
+class commands extends SnmpCore{
+
+	function __construct($ip,$comm)
+	{
+		parent::__construct($ip,$comm);
+	}
+
 
 	// GLOBAL ERRORS
 	$e100 = "ERROR RETURED" ; // e #100 will be used to represent the error return from the function
@@ -8,7 +18,7 @@
 	function getRouterName(){
 		//get router name
 		$oid = ".1.3.6.1.2.1.1.5.0";
-		$RName = snmpGetandTrim($oid,"STRING");
+		$RName = $this->snmpGetandTrim($oid,"STRING");
 		if($RName != "ERROR"){
 			return $RName;
 		}else{
@@ -21,11 +31,10 @@
 	*	no of interfaces
 	*	State : Tested
 	*/
-	function noOfInterfaces()
-	{
+	function noOfInterfaces(){
 		//get no of Interfaces
 		$oid = ".1.3.6.1.2.1.2.1.0";
-		$out = snmpGetandTrim($oid,"INTEGER");
+		$out = $this->snmpGetandTrim($oid,"INTEGER");
 		if($out != "ERROR"){
 			return $out;
 		}else{
@@ -37,10 +46,9 @@
 	*	get interface no from certain interfaces
 	*	State :
 	**/
-	function interNo($inter)
-	{
+	function interNo($inter){
 		$oid = ".1.3.6.1.2.1.2.2.1.1.".$inter;
-		$out = snmpGetandTrim($oid,"INTEGER");
+		$out = $this->snmpGetandTrim($oid,"INTEGER");
 		if($out != "ERROR"){
 			return $out;
 		}else{
@@ -51,10 +59,9 @@
 	*	get interface name from certain interfaces
 	*	state :
 	**/
-	function interName($inter)
-	{
+	function interName($inter){
 		$oid = ".1.3.6.1.2.1.2.2.1.2.".$inter;
-		$out = snmpGetandTrim($oid,"STRING");
+		$out = $this->snmpGetandTrim($oid,"STRING");
 		if($out != "ERROR"){
 			return $out;
 		}else{
@@ -65,10 +72,9 @@
 	/**
 	*	get type from certain interfaces
 	**/
-	function interType($inter)
-	{
+	function interType($inter){
 		$oid = ".1.3.6.1.2.1.2.2.1.3.".$inter;
-		$out = snmpGetandTrim($oid,"INTEGER");
+		$out = $this->snmpGetandTrim($oid,"INTEGER");
 		if($out != "ERROR"){
 			return $out;
 		}else{
@@ -81,7 +87,7 @@
 	function interAdminState($inter)
 	{
 		$oid = ".1.3.6.1.2.1.2.2.1.7.".$inter;
-		$out = snmpGetandTrim($oid,"INTEGER");
+		$out = $this->snmpGetandTrim($oid,"INTEGER");
 		if($out != "ERROR"){
 			if($out==1)
 				return "Up";
@@ -98,7 +104,7 @@
 	function interOperState($inter)
 	{
 		$oid = ".1.3.6.1.2.1.2.2.1.8.".$inter;
-		$out = snmpGetandTrim($oid,"INTEGER");
+		$out = $this->snmpGetandTrim($oid,"INTEGER");
 		if($out != "ERROR"){
 			if($out==1)
 				return "Up";
@@ -116,7 +122,7 @@
 	function interMTU($inter)
 	{
 		$oid = ".1.3.6.1.2.1.2.2.1.4.".$inter;
-		$out = snmpGetandTrim($oid,"INTEGER");
+		$out = $this->snmpGetandTrim($oid,"INTEGER");
 		if($out != "ERROR"){
 			return $out;
 		}else{
@@ -130,7 +136,7 @@
 	function interSpeed($inter)
 	{
 		$oid = ".1.3.6.1.2.1.2.2.1.5.".$inter;
-		$out = snmpGetandTrim($oid,"Gauge32");
+		$out = $this->snmpGetandTrim($oid,"Gauge32");
 		if($out != "ERROR"){
 			return $out;
 		}else{
@@ -144,7 +150,7 @@
 	function interPhysicalAddress($inter)
 	{
 		$oid = ".1.3.6.1.2.1.2.2.1.6.".$inter;
-		$out = snmpGetandTrim($oid,"Hex-STRING");
+		$out = $this->snmpGetandTrim($oid,"Hex-STRING");
 		if($out != "ERROR"){
 			return $out;
 		}else{
@@ -158,7 +164,7 @@
 	function interLastActiveDate($inter)
 	{
 		$oid = ".1.3.6.1.2.1.2.2.1.9.".$inter;
-		$out = snmpGetandTrim($oid,"Timeticks");
+		$out = $this->snmpGetandTrim($oid,"Timeticks");
 		if($out != "ERROR"){
 			return $out;
 		}else{
@@ -171,7 +177,7 @@
 	function interInOctet($inter)
 	{
 		$oid = ".1.3.6.1.2.1.2.2.1.10.".$inter;
-		$out = snmpGetandTrim($oid,"Counter32");
+		$out = $this->snmpGetandTrim($oid,"Counter32");
 		if($out != "ERROR"){
 			return $out;
 		}else{
@@ -184,7 +190,7 @@
 	function interOutOctet($inter)
 	{
 		$oid = ".1.3.6.1.2.1.2.2.1.16.".$inter;
-		$out = snmpGetandTrim($oid,"Counter32");
+		$out = $this->snmpGetandTrim($oid,"Counter32");
 		if($out != "ERROR"){
 			return $out;
 		}else{
@@ -197,7 +203,7 @@
 	function interInUnicast($inter)
 	{
 		$oid = ".1.3.6.1.2.1.2.2.1.11.".$inter;
-		$out = snmpGetandTrim($oid,"Counter32");
+		$out = $this->snmpGetandTrim($oid,"Counter32");
 		if($out != "ERROR"){
 			return $out;
 		}else{
@@ -210,7 +216,7 @@
 	function interOutUnicast($inter)
 	{
 		$oid = ".1.3.6.1.2.1.2.2.1.17.".$inter;
-		$out = snmpGetandTrim($oid,"Counter32");
+		$out = $this->snmpGetandTrim($oid,"Counter32");
 		if($out != "ERROR"){
 			return $out;
 		}else{
@@ -223,7 +229,7 @@
 	function interInNUnicast($inter)
 	{
 		$oid = ".1.3.6.1.2.1.2.2.1.12.".$inter;
-		$out = snmpGetandTrim($oid,"Counter32");
+		$out = $this->snmpGetandTrim($oid,"Counter32");
 		if($out != "ERROR"){
 			return $out;
 		}else{
@@ -236,7 +242,7 @@
 	function interOutNUnicast($inter)
 	{
 		$oid = ".1.3.6.1.2.1.2.2.1.18.".$inter;
-		$out = snmpGetandTrim($oid,"Counter32");
+		$out = $this->snmpGetandTrim($oid,"Counter32");
 		if($out != "ERROR"){
 			return $out;
 		}else{
@@ -250,7 +256,7 @@
 	function interInDiscard($inter)
 	{
 		$oid = ".1.3.6.1.2.1.2.2.1.13.".$inter;
-		$out = snmpGetandTrim($oid,"Counter32");
+		$out = $this->snmpGetandTrim($oid,"Counter32");
 		if($out != "ERROR"){
 			return $out;
 		}else{
@@ -263,7 +269,7 @@
 	function interOutDiscard($inter)
 	{
 		$oid = ".1.3.6.1.2.1.2.2.1.19.".$inter;
-		$out = snmpGetandTrim($oid,"Counter32");
+		$out = $this->snmpGetandTrim($oid,"Counter32");
 		if($out != "ERROR"){
 			return $out;
 		}else{
@@ -276,7 +282,7 @@
 	function interInErrors($inter)
 	{
 		$oid = ".1.3.6.1.2.1.2.2.1.14.".$inter;
-		$out = snmpGetandTrim($oid,"Counter32");
+		$out = $this->snmpGetandTrim($oid,"Counter32");
 		if($out != "ERROR"){
 			return $out;
 		}else{
@@ -289,7 +295,7 @@
 	function interOutErrors($inter)
 	{
 		$oid = ".1.3.6.1.2.1.2.2.1.20.".$inter;
-		$out = snmpGetandTrim($oid,"Counter32");
+		$out = $this->snmpGetandTrim($oid,"Counter32");
 		if($out != "ERROR"){
 			return $out;
 		}else{
@@ -302,7 +308,7 @@
 	function interInUnknownProtocols($inter)
 	{
 		$oid = ".1.3.6.1.2.1.2.2.1.15.".$inter;
-		$out = snmpGetandTrim($oid,"Counter32");
+		$out = $this->snmpGetandTrim($oid,"Counter32");
 		if($out != "ERROR"){
 			return $out;
 		}else{
@@ -317,7 +323,7 @@
 	function interOutQueueLen($inter)
 	{
 		$oid = ".1.3.6.1.2.1.2.2.1.21.".$inter;
-		$out = snmpGetandTrim($oid,"Gauge32");
+		$out = $this->snmpGetandTrim($oid,"Gauge32");
 		if($out != "ERROR"){
 			return $out;
 		}else{
@@ -325,4 +331,5 @@
 		}
 	}
 
+}
 ?>

@@ -2,6 +2,11 @@
 Thumbs.db
 ehthumbs.db
 
+# other FILES
+QuizHandler.php
+quiz.php
+zero.php
+
 # Folder config file
 Desktop.ini
 
